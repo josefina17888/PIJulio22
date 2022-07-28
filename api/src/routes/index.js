@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const { Sequelize, Op } = require('sequelize');
 // Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
 const axios = require ('axios');
 const { Pokemon, Types, pokemon_types } = require ('../db');
 const router = Router();
@@ -13,24 +12,58 @@ const { allPokemon } = require('./controllers/allPokemon.js')
 
 // ------------ GET pokemons y pokemons?name="..." --------------------
 //- Debe devolver solo los datos necesarios para la ruta principal CHEQUEAR!!
-router.get('/pokemons', async (req, res) => {
-    const name = req.query.name;
-    let pokemonTotal = await allPokemon();
-    try {
-        if(name){
-            let pokemonName = await pokemonTotal.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
-            if(pokemonName.length>0){
-                res.status(200).send(pokemonName)
-                } else {
-                    res.status(404).send('No se encuentra el pokemon')
-                    }
-        } else {
-            res.status(200).send(pokemonTotal);
-            }
-    } catch (error) {
-        res.status(404).send('Ocurrió un error')
-        }
-});
+
+ router.get('/pokemons', async (req, res) => {
+         const name = req.query.name;
+         if(name){
+             try {
+             let apiPoke = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+             let pokemonName = apiPoke.data;
+             var pokeFound = {
+                 name: pokemonName.name.toLowerCase(),
+                 id: pokemonName.id,
+                 img: pokemonName.sprites.other.dream_world.front_default,
+                 types: pokemonName.types.map(e => e.type.name),
+                 height: pokemonName.height,
+                 weight: pokemonName.weight,
+                 hp: pokemonName.stats[0].base_stat,
+                 attack: pokemonName.stats[1].base_stat,
+                 defense: pokemonName.stats[2].base_stat,
+                 speed: pokemonName.stats[5].base_stat
+             } 
+             console.log(pokeFound);
+             return res.status(200).send(pokeFound)
+             } catch (error) {
+                 const pokemonDataBase = await Pokemon.findOne({
+                     where:{
+                         name: name
+                     }})
+                 if(!pokemonDataBase) return res.status(404).send(`No se encuentra el pokemon ${name}`)
+                 else {
+                     var pokemonDbFound ={
+                         name : pokemonDataBase.name.toLowerCase(),
+                         id: pokemonDataBase.id,
+                         img: pokemonDataBase.img,
+                         types: pokemonDataBase.types,
+                         height: pokemonDataBase.height,
+                         weight: pokemonDataBase.weight,
+                         hp: pokemonDataBase.hp,
+                         attack: pokemonDataBase.attack,
+                         defense: pokemonDataBase.defense,
+                         speed: pokemonDataBase.speed
+                     } 
+                     return res.status(200).send(pokemonDbFound);
+                 }
+                 }
+             } else {
+                     try {
+                         let pokemonTotal = await allPokemon();
+                         res.status(200).send(pokemonTotal);
+                         } catch (error) {
+                             res.status(404).send('Ocurrió un error')
+                             }
+                 }
+ });
 
 // ------------ GET {idPokemon} --------------------
 //  - Obtener el detalle de un pokemon en particular
