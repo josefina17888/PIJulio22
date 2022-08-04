@@ -24,7 +24,22 @@ const pokemonDb = async () => {
 const allPokemon = async () => {
     const bringApiPokemon = await pokemonApi();
     const dbPokemon = await pokemonDb();
-    const totalPokemon = bringApiPokemon.concat(dbPokemon);
+    const dbPokemonCorrect = dbPokemon.map(e => {
+        return {
+            name: e.name,
+            id: e.id,
+            img: e.img,
+            hp: e.hp,
+            attack: e.attack,
+            defense: e.defense,
+            weight: e.weight,
+            height: e.height,
+            speed: e.speed,
+            createdInDb: e.createdInDb,
+            types: e.types.map(e => e.name)
+        }
+    })
+    const totalPokemon = bringApiPokemon.concat(dbPokemonCorrect);
     return totalPokemon
 }
 

@@ -5,9 +5,6 @@ const axios = require ('axios');
 const { Pokemon, Types, pokemon_types } = require ('../../db');
 const router = Router();
 
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
-
 const pokemonApi = async () => { 
 const apiPokemon1 = await axios.get('https://pokeapi.co/api/v2/pokemon');
 const apiPokemon2 = await axios.get(apiPokemon1.data.next);

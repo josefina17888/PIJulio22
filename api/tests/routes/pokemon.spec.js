@@ -14,11 +14,24 @@ describe('Pokemon routes', () => {
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   }));
-  beforeEach(() => Pokemon.sync({ force: true })
-    .then(() => Pokemon.create(pokemon)));
+  // beforeEach(() => Pokemon.sync({ force: true })
+  //   .then(() => Pokemon.create(pokemon)));
   describe('GET /pokemons', () => {
-    it('should get 200', () =>
+    it('should get 200', (done) =>{
       agent.get('/pokemons').expect(200)
+      done()}
     );
+  });
+  describe('GET /types', () => {
+    it('responds with 200', (done) =>{
+      agent.get('/types').expect(200);
+      done()
+    })
+  })
+  describe('GET /pokemons/:id', () => {
+    it('should get 200', (done) =>{
+      const response = agent.get('/10')
+      done()
+    });
   });
 });
