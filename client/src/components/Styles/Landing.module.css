@@ -1,0 +1,52 @@
+.Landing {
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-style: none;
+    padding: 10px;
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://www.todofondos.net/wp-content/uploads/1920x1080-Pikachu-Wallpaper-81-Go-No-te-vayas-1024x576.png");
+}
+
+.div{
+    display: grid;
+    place-content: center;
+}
+
+.title {
+    margin-top: 200px;
+    max-width: 300px;
+    max-height: 300px;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    position: relative;
+    justify-content: center
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.button {
+    margin-bottom: 250px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    background-color: #efe8e8;
+    color: #161716;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    border: #2d302d;
+}
+  
+.button:hover {
+    background-color: #2d302d; 
+    color: white;
+  }

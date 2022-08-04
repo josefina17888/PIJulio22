@@ -1,0 +1,21 @@
+.paging {
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 40px;
+  }
+
+  .button {
+    color: black;
+    font-weight: bold;
+    float: left;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .button a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .button a:hover:not(.active) {background-color: rgb(60, 57, 57); color: whitesmoke}

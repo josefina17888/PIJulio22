@@ -1,0 +1,30 @@
+.home {
+    background-color: rgb(240, 187, 51);
+    background-size: cover;
+}
+
+.order {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+      }
+      
+.orders {
+    padding: 10px;
+}
+
+.reload {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.create {
+    font-weight: bold;
+    font-size: large;
+    margin-bottom: 10px;
+}
+
+.paging {
+    align-content: center;
+}
